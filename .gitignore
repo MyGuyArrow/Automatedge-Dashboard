@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+coverage
+.env
+.env*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo
+next-dev.log
+next-dev.err.log
+dev-server.pid
+.pm2
+next-start.log
+next-start.err.log
