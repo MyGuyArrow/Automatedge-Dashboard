@@ -8,7 +8,7 @@
     "start": "next start -p 3000",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "create-admin": "node --conditions react-server --import tsx scripts/create-admin.ts",
+    "create-admin": "node scripts/create-admin.mjs",
     "seed:airtable": "node --conditions react-server --import tsx scripts/seed-airtable.ts"
   },
   "dependencies": {
