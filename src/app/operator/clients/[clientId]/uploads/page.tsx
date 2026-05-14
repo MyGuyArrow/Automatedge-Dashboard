@@ -4,9 +4,10 @@ import { getClientWorkspaceForOperator, requireOperator } from '@/lib/services/p
 
 export const dynamic = 'force-dynamic';
 
-export default async function OperatorClientUploadsPage({ params }: { params: { clientId: string } }) {
+export default async function OperatorClientUploadsPage({ params }: { params: Promise<{ clientId: string }> }) {
+  const { clientId } = await params;
   const user = await requireOperator();
-  const { client, assets } = await getClientWorkspaceForOperator(params.clientId);
+  const { client, assets } = await getClientWorkspaceForOperator(clientId);
 
   return (
     <AppShell user={user}>

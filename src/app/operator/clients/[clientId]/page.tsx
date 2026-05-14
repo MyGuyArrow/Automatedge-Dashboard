@@ -11,10 +11,11 @@ const tabs = ['intake', 'uploads', 'access', 'build', 'tasks', 'reports', 'audit
 export default async function OperatorClientDetailPage({
   params,
 }: {
-  params: { clientId: string };
+  params: Promise<{ clientId: string }>;
 }) {
+  const { clientId } = await params;
   const user = await requireOperator();
-  const workspace = await getClientWorkspaceForOperator(params.clientId);
+  const workspace = await getClientWorkspaceForOperator(clientId);
 
   return (
     <AppShell user={user}>
@@ -38,7 +39,7 @@ export default async function OperatorClientDetailPage({
             {tabs.map((tab) => (
               <Link
                 key={tab}
-                href={`/operator/clients/${params.clientId}/${tab}`}
+                href={`/operator/clients/${clientId}/${tab}`}
                 className="rounded-md border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
               >
                 {tab[0].toUpperCase() + tab.slice(1)}
@@ -46,6 +47,16 @@ export default async function OperatorClientDetailPage({
             ))}
           </div>
         </section>
+        {workspace.loadErrors.length ? (
+          <section className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+            <p className="font-semibold">Some workspace sections could not load.</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              {workspace.loadErrors.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
         <section className="grid gap-4 md:grid-cols-4">
           <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
             <p className="text-sm text-slate-500">Assets</p>

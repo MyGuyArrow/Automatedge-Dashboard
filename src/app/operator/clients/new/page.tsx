@@ -20,6 +20,12 @@ const optionalFormString = (formData: FormData, key: string) => {
   return value || undefined;
 };
 
+const optionalUrlString = (formData: FormData, key: string) => {
+  const value = optionalFormString(formData, key);
+  if (!value) return undefined;
+  return /^https?:\/\//i.test(value) ? value : `https://${value}`;
+};
+
 async function createClientAction(
   _state: CreateClientFormState,
   formData: FormData,
@@ -33,7 +39,7 @@ async function createClientAction(
       primaryContactName: requiredFormString(formData, 'primaryContactName'),
       primaryContactEmail: requiredFormString(formData, 'primaryContactEmail'),
       phoneWhatsapp: optionalFormString(formData, 'phoneWhatsapp'),
-      website: optionalFormString(formData, 'website'),
+      website: optionalUrlString(formData, 'website'),
       mainSocialProfile: optionalFormString(formData, 'mainSocialProfile'),
       niche: optionalFormString(formData, 'niche'),
       packageType: String(formData.get('packageType') || 'BUILD') as PackageType,

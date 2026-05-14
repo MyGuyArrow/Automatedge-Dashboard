@@ -556,39 +556,55 @@ export const getOperatorSummary = async (): Promise<OperatorSummary> => {
 export const getClientWorkspaceForOperator = async (clientRecordId: string) => {
   await requireOperator();
   const parsedClientId = recordIdSchema.parse(clientRecordId);
+  const client = await getClient(parsedClientId);
+
   const [
-    client,
-    intake,
-    assets,
-    accessRequests,
-    buildPhases,
-    tasks,
-    reports,
-    auditScores,
-    internalNotes,
-  ] =
-    await Promise.all([
-      getClient(parsedClientId),
-      getIntakeByClient(parsedClientId),
-      listAssetsForClientRecord(parsedClientId),
-      listAccessRequestsForClient(parsedClientId),
-      listBuildPhasesForClient(parsedClientId),
-      listTasksForClient(parsedClientId),
-      listReportsForClient(parsedClientId),
-      listAuditScoresForClient(parsedClientId),
-      listInternalNotesForClient(parsedClientId),
-    ]);
+    intakeResult,
+    assetsResult,
+    accessRequestsResult,
+    buildPhasesResult,
+    tasksResult,
+    reportsResult,
+    auditScoresResult,
+    internalNotesResult,
+  ] = await Promise.allSettled([
+    getIntakeByClient(parsedClientId),
+    listAssetsForClientRecord(parsedClientId),
+    listAccessRequestsForClient(parsedClientId),
+    listBuildPhasesForClient(parsedClientId),
+    listTasksForClient(parsedClientId),
+    listReportsForClient(parsedClientId),
+    listAuditScoresForClient(parsedClientId),
+    listInternalNotesForClient(parsedClientId),
+  ]);
+
+  const optionalValue = <T>(result: PromiseSettledResult<T>, fallback: T) =>
+    result.status === 'fulfilled' ? result.value : fallback;
 
   return {
     client,
-    intake,
-    assets,
-    accessRequests,
-    buildPhases,
-    tasks,
-    reports,
-    auditScores,
-    internalNotes,
+    intake: optionalValue(intakeResult, undefined),
+    assets: optionalValue(assetsResult, []),
+    accessRequests: optionalValue(accessRequestsResult, []),
+    buildPhases: optionalValue(buildPhasesResult, []),
+    tasks: optionalValue(tasksResult, []),
+    reports: optionalValue(reportsResult, []),
+    auditScores: optionalValue(auditScoresResult, []),
+    internalNotes: optionalValue(internalNotesResult, []),
+    loadErrors: ([
+      ['Intake', intakeResult],
+      ['Assets', assetsResult],
+      ['Access Requests', accessRequestsResult],
+      ['Build Phases', buildPhasesResult],
+      ['Tasks', tasksResult],
+      ['Reports', reportsResult],
+      ['Audit Scores', auditScoresResult],
+      ['Internal Notes', internalNotesResult],
+    ] as Array<[string, PromiseSettledResult<unknown>]>).flatMap(([label, result]) =>
+      result.status === 'rejected'
+        ? [`${label}: ${result.reason instanceof Error ? result.reason.message : 'Unable to load records.'}`]
+        : [],
+    ),
   };
 };
 
