@@ -3,8 +3,6 @@ import path from 'node:path';
 import readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 
-import bcrypt from 'bcryptjs';
-
 const baseUrl = 'https://api.airtable.com/v0';
 const saltRounds = 12;
 
@@ -98,6 +96,20 @@ const createAdminUser = async ({ email, fullName, passwordHash }) => {
   };
 };
 
+const loadBcrypt = async () => {
+  try {
+    const bcrypt = await import('bcryptjs');
+    return bcrypt.default || bcrypt;
+  } catch (error) {
+    if (error?.code === 'ERR_MODULE_NOT_FOUND') {
+      throw new Error(
+        'Missing dependency bcryptjs. Run `npm install` in /var/www/Dashboard, then retry `npm run create-admin`.',
+      );
+    }
+    throw error;
+  }
+};
+
 async function main() {
   loadLocalEnv();
 
@@ -116,6 +128,7 @@ async function main() {
     throw new Error(`User already exists: ${email}`);
   }
 
+  const bcrypt = await loadBcrypt();
   const user = await createAdminUser({
     email,
     fullName,
