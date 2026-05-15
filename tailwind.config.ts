@@ -15,7 +15,7 @@ const config: Config = {
         warning: '#f5c451',
       },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         soft: '0 18px 60px rgba(0,0,0,0.35)',

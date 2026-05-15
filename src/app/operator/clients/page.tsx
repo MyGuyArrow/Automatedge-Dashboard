@@ -26,7 +26,7 @@ export default async function OperatorClientsPage() {
           </div>
           <Link
             href="/operator/clients/new"
-            className="rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white"
+            className="ae-action px-5 py-2.5 text-sm font-semibold"
           >
             New client
           </Link>

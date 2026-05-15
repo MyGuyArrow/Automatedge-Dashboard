@@ -5,10 +5,10 @@ import type { Client } from '@/types';
 
 export function OperatorClientTable({ clients }: { clients: Client[] }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-      <div className="border-b border-slate-200 px-5 py-4">
-        <h2 className="text-lg font-semibold text-slate-950">Client Workspaces</h2>
-        <p className="mt-1 text-sm text-slate-600">
+    <div className="ae-panel overflow-hidden rounded-lg">
+      <div className="border-b border-line px-5 py-4">
+        <h2 className="text-lg font-semibold text-fg">Client Workspaces</h2>
+        <p className="mt-1 text-sm text-muted">
           Search and filtering can be extended without changing the Airtable schema.
         </p>
       </div>
@@ -50,7 +50,7 @@ export function OperatorClientTable({ clients }: { clients: Client[] }) {
                 <td className="px-5 py-4 text-right">
                   <Link
                     href={`/operator/clients/${client.id}`}
-                    className="text-sm font-semibold text-teal-700"
+                    className="text-sm font-semibold text-fg underline-offset-4 hover:underline"
                   >
                     Open workspace
                   </Link>

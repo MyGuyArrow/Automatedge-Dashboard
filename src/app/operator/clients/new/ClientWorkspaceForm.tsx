@@ -16,7 +16,7 @@ function SubmitButton() {
   return (
     <button
       disabled={pending}
-      className="rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
+      className="ae-action px-5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60"
     >
       {pending ? 'Creating...' : 'Create workspace'}
     </button>
@@ -35,39 +35,39 @@ export function ClientWorkspaceForm({ action }: ClientWorkspaceFormProps) {
       ) : null}
       <label className="text-sm font-medium text-slate-700">
         Business name
-        <input name="businessName" required className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2" />
+        <input name="businessName" required className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm" />
       </label>
       <label className="text-sm font-medium text-slate-700">
         Client name
-        <input name="clientName" className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2" />
+        <input name="clientName" className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm" />
       </label>
       <label className="text-sm font-medium text-slate-700">
         Primary contact
-        <input name="primaryContactName" required className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2" />
+        <input name="primaryContactName" required className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm" />
       </label>
       <label className="text-sm font-medium text-slate-700">
         Primary email
-        <input name="primaryContactEmail" type="email" required className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2" />
+        <input name="primaryContactEmail" type="email" required className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm" />
       </label>
       <label className="text-sm font-medium text-slate-700">
         Phone / WhatsApp
-        <input name="phoneWhatsapp" className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2" />
+        <input name="phoneWhatsapp" className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm" />
       </label>
       <label className="text-sm font-medium text-slate-700">
         Website
-        <input name="website" className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2" />
+        <input name="website" className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm" />
       </label>
       <label className="text-sm font-medium text-slate-700">
         Main social profile
-        <input name="mainSocialProfile" className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2" />
+        <input name="mainSocialProfile" className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm" />
       </label>
       <label className="text-sm font-medium text-slate-700">
         Niche
-        <input name="niche" className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2" />
+        <input name="niche" className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm" />
       </label>
       <label className="text-sm font-medium text-slate-700">
         Package
-        <select name="packageType" className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2">
+        <select name="packageType" className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm">
           <option value="BUILD">BUILD</option>
           <option value="BUILD_MANAGE">BUILD_MANAGE</option>
           <option value="PARTNER">PARTNER</option>
@@ -75,7 +75,7 @@ export function ClientWorkspaceForm({ action }: ClientWorkspaceFormProps) {
       </label>
       <label className="text-sm font-medium text-slate-700">
         Reporting cadence
-        <select name="reportingCadence" className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2">
+        <select name="reportingCadence" className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm">
           <option value="WEEKLY">WEEKLY</option>
           <option value="FORTNIGHTLY">FORTNIGHTLY</option>
           <option value="MONTHLY">MONTHLY</option>

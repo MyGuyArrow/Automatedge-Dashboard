@@ -79,8 +79,8 @@ export function AssetUploadForm({ clientRecordId }: { clientRecordId: string }) 
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-semibold text-slate-950">Upload to Asset Library</h2>
+    <form onSubmit={onSubmit} className="ae-panel rounded-lg p-6">
+      <h2 className="text-lg font-semibold text-fg">Upload to Asset Library</h2>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         <div>
           <label className="text-sm font-medium text-slate-700" htmlFor="category">
@@ -89,7 +89,7 @@ export function AssetUploadForm({ clientRecordId }: { clientRecordId: string }) 
           <select
             id="category"
             name="category"
-            className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm"
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -107,7 +107,7 @@ export function AssetUploadForm({ clientRecordId }: { clientRecordId: string }) 
             name="file"
             type="file"
             required
-            className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm"
           />
         </div>
       </div>
@@ -119,12 +119,12 @@ export function AssetUploadForm({ clientRecordId }: { clientRecordId: string }) 
           id="description"
           name="description"
           rows={3}
-          className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+          className="mt-2 w-full rounded-none border border-line px-4 py-3 text-sm"
         />
       </div>
       <button
         type="submit"
-        className="mt-5 rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white"
+        className="ae-action mt-5 px-5 py-2.5 text-sm font-semibold"
       >
         Create presigned upload
       </button>

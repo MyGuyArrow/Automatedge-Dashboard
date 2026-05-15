@@ -34,7 +34,7 @@ export function LoginForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
-        <label className="text-sm font-medium text-slate-700" htmlFor="email">
+        <label className="text-sm font-medium text-fg" htmlFor="email">
           Email
         </label>
         <input
@@ -43,11 +43,11 @@ export function LoginForm() {
           type="email"
           autoComplete="email"
           required
-          className="mt-2 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-950 outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+          className="mt-2 w-full rounded-none border border-line bg-bg px-4 py-3 text-sm text-fg outline-none transition-colors focus:border-fg"
         />
       </div>
       <div>
-        <label className="text-sm font-medium text-slate-700" htmlFor="password">
+        <label className="text-sm font-medium text-fg" htmlFor="password">
           Password
         </label>
         <input
@@ -56,14 +56,14 @@ export function LoginForm() {
           type="password"
           autoComplete="current-password"
           required
-          className="mt-2 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-950 outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-100"
+          className="mt-2 w-full rounded-none border border-line bg-bg px-4 py-3 text-sm text-fg outline-none transition-colors focus:border-fg"
         />
       </div>
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-md bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+        className="ae-action w-full px-6 py-3 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? 'Signing in...' : 'Sign in'}
       </button>
