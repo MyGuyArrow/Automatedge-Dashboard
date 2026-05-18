@@ -26,6 +26,10 @@ export const mapUser = (record: AirtableRecord<Record<string, unknown>>): User =
   clientRecordId: text(record.fields['Client Record ID']),
   phone: text(record.fields.Phone),
   status: (text(record.fields.Status) || 'INVITED') as User['status'],
+  inviteTokenHash: text(record.fields['Invite Token Hash']),
+  inviteExpiresAt: text(record.fields['Invite Expires At']),
+  inviteSentAt: text(record.fields['Invite Sent At']),
+  inviteAcceptedAt: text(record.fields['Invite Accepted At']),
   createdAt: text(record.fields['Created At']) || record.createdTime,
   updatedAt: text(record.fields['Updated At']),
 });

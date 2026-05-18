@@ -87,6 +87,10 @@ export type User = {
   clientRecordId?: string;
   phone?: string;
   status: UserStatus;
+  inviteTokenHash?: string;
+  inviteExpiresAt?: string;
+  inviteSentAt?: string;
+  inviteAcceptedAt?: string;
   createdAt?: string;
   updatedAt?: string;
 };

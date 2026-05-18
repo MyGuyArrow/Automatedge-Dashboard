@@ -42,6 +42,7 @@ AIRTABLE_AUDIT_LOGS_TABLE=Audit Logs
 AUTH_SECRET=
 APP_URL=https://dashboard.automatedge.co.uk
 NEXTAUTH_URL=https://dashboard.automatedge.co.uk
+MAKE_INVITE_API_KEY=
 AWS_REGION=eu-west-2
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
@@ -111,16 +112,32 @@ Submitting the form creates a `Clients` record and default `Build Phases` record
 9. Launch
 10. Optimisation
 
-## 9. Create Client User
+## 9. Invite Client User
 
 Client users must have:
 
 - `Role = CLIENT`
 - `Status = ACTIVE` or `INVITED`
 - `Client Record ID = Airtable record ID of their client`
-- `Password Hash`, never raw password
+- `Password Hash` only after invite acceptance, never raw password
 
-The service function `createClientUser` hashes passwords and links users to a client workspace.
+The Make-facing invite endpoint creates or updates `INVITED` users, stores only an invite token
+hash, and returns an invite URL for Resend to email:
+
+```http
+POST /api/invites/client
+Authorization: Bearer <MAKE_INVITE_API_KEY>
+Content-Type: application/json
+
+{ "clientRecordId": "recXXXXXXXXXXXXXX" }
+```
+
+When the response action is `SEND_INVITE`, send `inviteUrl` to the returned `email`. The client
+sets their own password at `/accept-invite`, the dashboard stores the bcrypt `Password Hash`, marks
+the user `ACTIVE`, signs them in, and redirects them to `/client/uploads`.
+
+`SKIP_ACTIVE` means the client already has an active account. `SKIP_RECENT` means an unexpired
+invite was already sent inside the 24-hour cooldown window.
 
 ## 10. Upload Assets
 
@@ -297,6 +314,9 @@ This MVP does not include password reset email delivery. Reset requests should b
 
 ## 22. Suggested Make.io Automations
 
+- When `Clients.Status = INTAKE_PENDING` and `Primary Contact Email` is present, call
+  `/api/invites/client` with the Airtable client record ID, then send the returned `inviteUrl`
+  through Resend when `action = SEND_INVITE`.
 - When `Assets.Status` becomes `UPLOADED`, notify the assigned operator.
 - When `Access Requests.Status` becomes `AWAITING_CLIENT`, notify the client.
 - When a `Tasks` record with `Assigned To Type = CLIENT` is created, notify the client.

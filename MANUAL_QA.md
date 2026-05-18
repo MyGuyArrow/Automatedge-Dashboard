@@ -47,8 +47,20 @@ Run these checks against a local Airtable base and S3 test bucket before EC2 dep
 - [ ] Unsupported file types are rejected before upload.
 - [ ] Audit logs are created for important operator actions.
 
+## Client Invites
+
+- [ ] Make invite API rejects requests without `Authorization: Bearer <MAKE_INVITE_API_KEY>`.
+- [ ] New `INTAKE_PENDING` client creates an `INVITED` user and returns `action = SEND_INVITE`.
+- [ ] Existing active client user returns `action = SKIP_ACTIVE`.
+- [ ] Recently invited client user returns `action = SKIP_RECENT`.
+- [ ] Same email linked to a different client returns a conflict for manual review.
+- [ ] Accepting a valid invite sets `Password Hash`, activates the user, and redirects to `/client/uploads`.
+- [ ] Reusing an accepted invite fails safely.
+- [ ] Expired or malformed invite links fail safely.
+
 ## Make.io Compatibility
 
+- [ ] Make.io can watch `Clients.Status = INTAKE_PENDING` and call `/api/invites/client`.
 - [ ] Make.io can watch `Assets.Status = UPLOADED`.
 - [ ] Make.io can watch `Access Requests.Status = AWAITING_CLIENT`.
 - [ ] Make.io can watch `Tasks.Assigned To Type = CLIENT`.

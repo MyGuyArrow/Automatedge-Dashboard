@@ -13,6 +13,10 @@ Create one Airtable base for the AutomatEdge Fulfilment Dashboard. Field names m
 | Client Record ID | Single line text | recXXXXXXXXXXXXXX |
 | Phone | Single line text | +44 7000 000000 |
 | Status | Single select: ACTIVE, INVITED, DISABLED | ACTIVE |
+| Invite Token Hash | Single line text | sha256 hex token hash |
+| Invite Expires At | Date/time or single line text | 2026-05-21T10:00:00.000Z |
+| Invite Sent At | Date/time or single line text | 2026-05-14T10:00:00.000Z |
+| Invite Accepted At | Date/time or single line text | 2026-05-14T10:05:00.000Z |
 | Created At | Date/time or single line text | 2026-05-14T10:00:00.000Z |
 | Updated At | Date/time or single line text | 2026-05-14T10:00:00.000Z |
 
