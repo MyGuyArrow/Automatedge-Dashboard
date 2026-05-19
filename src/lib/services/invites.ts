@@ -4,7 +4,7 @@ import { createHash, randomBytes, timingSafeEqual } from 'crypto';
 import { z } from 'zod';
 
 import { createAuditLogRecord } from '@/lib/airtable/auditLogs';
-import { getClient } from '@/lib/airtable/clients';
+import { getClient, updateClientRecord } from '@/lib/airtable/clients';
 import {
   createUser,
   findUserByEmail,
@@ -270,6 +270,7 @@ export const acceptClientInvite = async (input: unknown) => {
     inviteExpiresAt: null,
     inviteAcceptedAt: acceptedAt,
   });
+  await updateClientRecord(client.id, { status: 'AWAITING_ASSETS' });
 
   await createAuditLogRecord({
     actorUserId: updated.id,
@@ -277,7 +278,7 @@ export const acceptClientInvite = async (input: unknown) => {
     action: 'CLIENT_INVITE_ACCEPTED',
     entityType: 'User',
     entityId: updated.id,
-    metadata: { email: updated.email, acceptedAt },
+    metadata: { email: updated.email, acceptedAt, clientStatus: 'AWAITING_ASSETS' },
   });
 
   return {
